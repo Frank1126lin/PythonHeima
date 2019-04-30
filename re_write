@@ -23,7 +23,10 @@ class Xiaotianquan(Dog):
     def run(self):
         # re-write the fun run
         print("Fly!")
-        Dog.run(self)
+        # recommed the method below to use the parent function.
+        super().run()
+        # python 2.X and 3.x still can use the method below.
+        # Dog.run(self)
         print("are we done?")
     
 
