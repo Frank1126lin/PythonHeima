@@ -2,7 +2,7 @@
 # _*_ conding:utf-8 _*_
 # @Author :Frank1126lin
 # @Date   :5/1/19
-# @File   :class_attribute.py
+# @File   :05-class_attribute.py
 
 
 class Tool(object):

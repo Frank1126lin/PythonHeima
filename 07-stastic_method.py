@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-#@File  : stastic_method.py
+#@File  : 07-stastic_method.py
 #@Author: Frank1126lin
 #@Date  : 5/1/19
 

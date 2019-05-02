@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @File  : OOP_ex1.py
+# @File  : 02-OOP_ex1.py
 # @Author: Frank
 # @Date  : 4/25/2019
 
