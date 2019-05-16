@@ -20,10 +20,10 @@ class PlaneGame(object):
 		self.clock = pygame.time.Clock()
 		# 3. 调用私有方法，创建精灵和精灵组
 		self.__creat_sprite()
-
 		# 4. 设置定时器事件， 创建敌机 1s
 		pygame.time.set_timer(CREATE_ENEMY_EVENT, 1000)
-
+		# 5. 每隔0.5秒，英雄发射子弹
+		pygame.time.set_timer(HERO_FIRE_EVENT, 300)
 
 
 	def __creat_sprite(self):
@@ -57,6 +57,10 @@ class PlaneGame(object):
 				# 将敌机精灵增加到敌机精灵组
 				self.enemy_group.add(enemy)
 
+			# 增加英雄发射子弹事件
+			elif event.type == HERO_FIRE_EVENT:
+				self.hero.fire()
+
 			# elif event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
 			# 	print("向右移动")
 
@@ -64,15 +68,27 @@ class PlaneGame(object):
 		keys_pressed = pygame.key.get_pressed()
 		# 判断元组中对应的按键索引值
 		if keys_pressed[pygame.K_RIGHT]:
-			self.hero.speed = 2
+			self.hero.speed = 6
 		elif keys_pressed[pygame.K_LEFT]:
-			self.hero.speed = -2
+			self.hero.speed = -6
 		else:
 			self.hero.speed = 0
 
 	def __check_collide(self):
 		"""检测碰撞"""
-		pass
+
+		# 1. 子弹摧毁敌机
+		pygame.sprite.groupcollide(self.hero.bullet, self.enemy_group, True, True)
+
+        # 2. 敌机摧毁英雄
+		enemies = pygame.sprite.spritecollide(self.hero, self.enemy_group, True)
+
+		# 3. 判断列表是否有内容
+		if len(enemies) > 0:
+			# 英雄牺牲
+			self.hero.kill()
+			# 游戏结束
+			PlaneGame.__game_over()
 
 	def __update_sprites(self):
 
@@ -85,6 +101,9 @@ class PlaneGame(object):
 
 		self.hero_group.update()
 		self.hero_group.draw(self.screen)
+
+		self.hero.bullet.update()
+		self.hero.bullet.draw(self.screen)
 
 	@staticmethod
 	def __game_over():
